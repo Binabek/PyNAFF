@@ -4,6 +4,7 @@ try:
 except ImportError:
 	from __builtin__ import range, int
 import numpy as np
+import math
 """
 # NAFF - Numerical Analysis of Fundamental Frequencies
 # Version : 1.1.4
@@ -141,7 +142,7 @@ def naff(data, turns=300, nterms=1, skipTurns=0, getFullSpectrum=False, window=1
 		for i in range(len(vars['TFS'])):
 			TEST = np.abs(vars['TFS'][i] - FR)
 			if TEST < ECART:
-				if np.float(TEST)/np.float(ECART) < TOL:
+				if float(TEST)/float(ECART) < TOL:
 					IFLAG = -1
 					NUMFR = i
 					break
@@ -208,7 +209,7 @@ def naff(data, turns=300, nterms=1, skipTurns=0, getFullSpectrum=False, window=1
 			ZDIV = ZDIV + np.conj(vars['ZALP'][NF-1, i])*ZTEE[i]
 		DIV = np.sqrt(np.abs(ZDIV))
 		vars['ZALP'][NF-1,:] = vars['ZALP'][NF-1,:]/DIV
-		ZMUL = np.complex(A,B)/DIV
+		ZMUL = complex(A,B)/DIV
 		ZI = 0.0+1.0j
 
 		for i in range(0, NF):
@@ -229,7 +230,7 @@ def naff(data, turns=300, nterms=1, skipTurns=0, getFullSpectrum=False, window=1
 
 	T    = np.linspace(0, turns, num=turns+1, endpoint=True)*2.0*np.pi - np.pi*turns
 	vars['TWIN'] = 1.0+np.cos(T/turns)
-	vars['TWIN'] = ((2.0**window*np.math.factorial(window)**2)/float(np.math.factorial(2*window)))*(1.0+np.cos(T/turns))**window
+	vars['TWIN'] = ((2.0**window*math.factorial(window)**2)/float(math.factorial(2*window)))*(1.0+np.cos(T/turns))**window
 	vars['ZTABS'] = data[skipTurns:skipTurns+turns+1]
 
 	TOL = 1.0e-4

@@ -240,7 +240,7 @@ def naff(data, turns=300, nterms=1, skipTurns=0, getFullSpectrum=False, window=1
 		if getFullSpectrum:
 			y = np.fft.fft(data_for_fft)
 		else:
-			y = np.fft.rfft(data_for_fft.astype('float64'))
+			y = np.fft.rfft(np.real(data_for_fft))#.astype('float64'))
 
 		RTAB = np.sqrt(np.real(y)**2 + np.imag(y)**2)/turns  # normalized
 		INDX = np.argmax(RTAB)
